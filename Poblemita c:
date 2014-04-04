@@ -1,6 +1,10 @@
 #include <iostream>
 #include <stdio.h>
 using namespace std;
+
+/*Hola compañeros
+ Prueba de soporte de software
+*/
  
 struct datos{
     char ax;
