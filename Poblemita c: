@@ -1,0 +1,284 @@
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+ 
+struct datos{
+    char ax;
+    char ay;
+    char bx;
+    char by;
+    bool t;
+};
+int n;
+char mapa[52][52];
+int axini;
+int ayini;
+int bxini;
+int byini;
+datos cola[6250002];
+int ini;
+int fin;
+bool vis[52][52][52][52];
+ 
+void mete (datos cual){
+    if (vis[cual.ax][cual.ay][cual.bx][cual.by]==false){
+        vis[cual.ax][cual.ay][cual.bx][cual.by]=true;
+        fin+=1;
+        cola[fin]=cual;
+    }
+}
+ 
+void genera (){
+    if (cola[ini].ax-1>=1){
+        if (mapa[cola[ini].ax-1][cola[ini].ay]!='#'){
+            if (mapa[cola[ini].ax-1][cola[ini].ay]=='*'){
+                if (mapa[cola[ini].bx][cola[ini].by]=='B'){
+                    datos aux;
+                    aux.ax=cola[ini].ax-1;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }else{
+                if ((mapa[cola[ini].bx][cola[ini].by]!='*') || (mapa[cola[ini].bx][cola[ini].by]=='*' && mapa[cola[ini].ax-1][cola[ini].ay]=='B')){
+                    datos aux;
+                    aux.ax=cola[ini].ax-1;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }
+        }
+    }
+    if (cola[ini].ax+1<=n){
+        if (mapa[cola[ini].ax+1][cola[ini].ay]!='#'){
+            if (mapa[cola[ini].ax+1][cola[ini].ay]=='*'){
+                if (mapa[cola[ini].bx][cola[ini].by]=='B'){
+                    datos aux;
+                    aux.ax=cola[ini].ax+1;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }else{
+                if ((mapa[cola[ini].bx][cola[ini].by]!='*') || (mapa[cola[ini].bx][cola[ini].by]=='*' && mapa[cola[ini].ax+1][cola[ini].ay]=='B')){
+                    datos aux;
+                    aux.ax=cola[ini].ax+1;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }
+        }
+    }
+    if (cola[ini].ay-1>=1){
+        if (mapa[cola[ini].ax][cola[ini].ay-1]!='#'){
+            if (mapa[cola[ini].ax][cola[ini].ay-1]=='*'){
+                if (mapa[cola[ini].bx][cola[ini].by]=='B'){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay-1;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }else{
+                if ((mapa[cola[ini].bx][cola[ini].by]!='*') || (mapa[cola[ini].bx][cola[ini].by]=='*' && mapa[cola[ini].ax][cola[ini].ay-1]=='B')){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay-1;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }
+        }
+    }
+    if (cola[ini].ay+1<=n){
+        if (mapa[cola[ini].ax][cola[ini].ay+1]!='#'){
+            if (mapa[cola[ini].ax][cola[ini].ay+1]=='*'){
+                if (mapa[cola[ini].bx][cola[ini].by]=='B'){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay+1;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }else{
+                if ((mapa[cola[ini].bx][cola[ini].by]!='*') || (mapa[cola[ini].bx][cola[ini].by]=='*' && mapa[cola[ini].ax][cola[ini].ay+1]=='B')){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay+1;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }
+        }
+    }
+    if (cola[ini].bx-1>=1){
+        if (mapa[cola[ini].bx-1][cola[ini].by]!='#'){
+            if (mapa[cola[ini].bx-1][cola[ini].by]=='*'){
+                if (mapa[cola[ini].ax][cola[ini].ay]=='B'){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx-1;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }else{
+                if ((mapa[cola[ini].ax][cola[ini].ay]!='*') || (mapa[cola[ini].ax][cola[ini].ay]=='*' && mapa[cola[ini].bx-1][cola[ini].by]=='B')){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx-1;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }
+        }
+    }
+    if (cola[ini].bx+1<=n){
+        if (mapa[cola[ini].bx+1][cola[ini].by]!='#'){
+            if (mapa[cola[ini].bx+1][cola[ini].by]=='*'){
+                if (mapa[cola[ini].ax][cola[ini].ay]=='B'){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx+1;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }else{
+                if ((mapa[cola[ini].ax][cola[ini].ay]!='*') || (mapa[cola[ini].ax][cola[ini].ay]=='*' && mapa[cola[ini].bx+1][cola[ini].by]=='B')){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx+1;
+                    aux.by=cola[ini].by;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }
+        }
+    }
+    if (cola[ini].by-1>=1){
+        if (mapa[cola[ini].bx][cola[ini].by-1]!='#'){
+            if (mapa[cola[ini].bx][cola[ini].by-1]=='*'){
+                if (mapa[cola[ini].ax][cola[ini].ay]=='B'){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by-1;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }else{
+                if ((mapa[cola[ini].ax][cola[ini].ay]!='*') || (mapa[cola[ini].ax][cola[ini].ay]=='*' && mapa[cola[ini].bx][cola[ini].by-1]=='B')){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by-1;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }
+        }
+    }
+    if (cola[ini].by+1<=n){
+        if (mapa[cola[ini].bx][cola[ini].by+1]!='#'){
+            if (mapa[cola[ini].bx][cola[ini].by+1]=='*'){
+                if (mapa[cola[ini].ax][cola[ini].ay]=='B'){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by+1;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }else{
+                if ((mapa[cola[ini].ax][cola[ini].ay]!='*') || (mapa[cola[ini].ax][cola[ini].ay]=='*' && mapa[cola[ini].bx][cola[ini].by+1]=='B')){
+                    datos aux;
+                    aux.ax=cola[ini].ax;
+                    aux.ay=cola[ini].ay;
+                    aux.bx=cola[ini].bx;
+                    aux.by=cola[ini].by+1;
+                    aux.t=(cola[ini].t+1)%2;
+                    mete (aux);
+                }
+            }
+        }
+    }
+}
+ 
+void saca (){
+    genera ();
+    ini+=1;
+}
+ 
+void busca (){
+    ini=1;
+    fin=1;
+    cola[ini].ax=axini;
+    cola[ini].ay=ayini;
+    cola[ini].bx=bxini;
+    cola[ini].by=byini;;
+    cola[ini].t=0;
+    while ((mapa[cola[ini].ax][cola[ini].ay]!='S' || mapa[cola[ini].bx][cola[ini].by]!='S') && ini<=fin){
+        vis[cola[ini].ax][cola[ini].ay][cola[ini].bx][cola[ini].by]=true;
+        saca ();
+    }
+    int cont=0;
+    int act=ini;
+    while (act>1){
+        if (cola[act-1].t!=cola[act].t){
+            cont+=1;
+        }
+        act-=1;
+    }
+    printf ("%d\n",cont);
+}
+ 
+void proceso (){
+    scanf ("%d",&n);
+    for (int i=1;i<=n;i++){
+        for (int j=1;j<=n;j++){
+            scanf (" %c",&mapa[i][j]);
+            if (mapa[i][j]=='M'){
+                axini=i;
+                ayini=j;
+            }
+            if (mapa[i][j]=='L'){
+                bxini=i;
+                byini=j;
+            }
+        }
+    }
+    busca ();
+}
+ 
+int main(){
+ 
+    proceso ();
+    return 0;
+}
